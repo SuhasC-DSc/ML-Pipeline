@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from mlflow.models import infer_signature
 
 # ===============================
-# MLflow Configuration (ONLY ONCE)
+# MLflow Configuration 
 # ===============================
 os.environ["MLFLOW_TRACKING_URI"] = "https://dagshub.com/SuhasC-DSc/MLpipeline.mlflow"
 os.environ["MLFLOW_TRACKING_USERNAME"] = "SuhasC-DSc"
@@ -42,21 +42,17 @@ def train(input_path, model_path, random_state, n_estimators, max_depth):
 
     # Load data
     df = pd.read_csv(input_path, header=None)
+    df.columns = df.columns.astype(str)
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
 
     with mlflow.start_run():
 
         # Train-test split
-        X_train, X_test, y_train, y_test = train_test_split(
-            X,
-            y,
-            test_size=0.2,
-            random_state=random_state
-        )
+        X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=random_state)
 
         # Infer signature
-        y_train = y_train.to_frame(name="target").astype(int)
+        #y_train = y_train.to_frame(name="target").astype(int)
             #Convert y_train into a DataFrame
         signature = infer_signature(X_train, y_train)
 

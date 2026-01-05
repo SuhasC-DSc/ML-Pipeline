@@ -30,6 +30,6 @@ def evaluate(model_path, test_data_path):
 
 if __name__ == "__main__":
     evaluate(
-        model_path=params["data"],
-        test_data_path=params["model"]
+        model_path=params["model"],
+        test_data_path=params["data"]
     )
