@@ -52,8 +52,6 @@ def train(input_path, model_path, random_state, n_estimators, max_depth):
         X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=random_state)
 
         # Infer signature
-        #y_train = y_train.to_frame(name="target").astype(int)
-            #Convert y_train into a DataFrame
         signature = infer_signature(X_train, y_train)
 
         # Hyperparameter grid

@@ -19,7 +19,8 @@ def evaluate(model_path, test_data_path):
     mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
 
     ## Load model from MLflow
-    model= pickle.load(open(model_path, 'rb'))
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)
 
     predictions = model.predict(X)
     accuracy = accuracy_score(y, predictions)
